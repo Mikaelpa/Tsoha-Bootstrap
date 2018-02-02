@@ -51,4 +51,15 @@ class Elokuva extends BaseModel {
         return null;
     }
 
+    public function save() {
+
+        $querry = DB::connection()->prepare('INSERT INTO Elokuva (näyttelijä_id, ohjaaja_id, tyyli_id, nimi, kuvaus, julkaisuvuosi) VALUES (:näyttelijä_id, :ohjaaja_id, :tyyli_id, :nimi, :kuvaus, :julkaisuvuosi) RETURNING id');
+
+        $querry->execute(array('näyttelijä_id' => $this->näyttelijä_id, 'ohjaaja_id' => $this->ohjaaja_id, 'tyyli_id' => $this->tyyli_id, 'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'julkaisuvuosi' => $this->julkaisuvuosi));
+
+        $row = $querry->fetch();
+
+        $this->id = $row['id'];
+    }
+
 }
