@@ -9,7 +9,7 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-        View::make('suunnitelmat/helloworld.html');
+        View::make('/helloworld.html');
     }
 
     public static function elokuva() {
@@ -21,7 +21,7 @@ class HelloWorldController extends BaseController {
     }
 
     public static function arvostelu() {
-        View::make('arvostelu.html');
+        View::make('suunnitelmat/arvostelu.html');
     }
 
 }
