@@ -3,8 +3,10 @@
 		"classmap": [
 			"config/database.php",
 			"lib",
-			"app/controllers"
+			"app/controllers",
+                        "app/models"
 		]
+                
 	},
 	"require": {
 		"slim/slim": "2.*",

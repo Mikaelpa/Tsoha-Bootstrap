@@ -15,6 +15,7 @@ CREATE TABLE Näyttelijä(
 
 CREATE TABLE Arvostelu(
     id SERIAL PRIMARY KEY,
+    elokuva_id INTEGER REFERENCES Elokuva(id)
     kirjoittaja varchar(60) NOT NULL,
     sisältö varchar(500)
 );
@@ -29,8 +30,7 @@ CREATE TABLE Elokuva(
   id SERIAL PRIMARY KEY,
   näyttelijä_id INTEGER REFERENCES Näyttelijä(id),
   ohjaaja_id INTEGER REFERENCES Ohjaaja(id),
-  tyylilaji_id INTEGER REFERENCES Tyylilaji(id),
-  arvostelu_id INTEGER REFERENCES Arvostelu(id),
+  tyyli_id INTEGER REFERENCES Tyylilaji(id),
   nimi varchar(60) NOT NULL, 
   kuvaus varchar(300) NOT NULL,
   julkaisuvuosi DATE
