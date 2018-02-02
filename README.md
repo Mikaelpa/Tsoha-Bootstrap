@@ -13,3 +13,5 @@ Yleisiä linkkejä:
 
 PMDB - practice movie database (elokuvatietokanta)
 
+## Kommentteja
+-Elokuvan lisääminen toimii toistaiseksi vasta kahdella muuttujalla(kuvaus ja nimi)

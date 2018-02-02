@@ -1,21 +1,21 @@
 <?php
 
-  $routes->get('/', function() {
-    HelloWorldController::index();
-  });
+$routes->get('/', function() {
+    ElokuvaController::index();
+});
 
-  $routes->get('/hiekkalaatikko', function() {
+$routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
-  });
-  
-    $routes->get('/arvostelu', function() {
+});
+
+$routes->get('/arvostelu', function() {
     HelloWorldController::arvostelu();
-  });
-  
-    $routes->get('/elokuvamuokkaus', function() {
+});
+
+$routes->get('/elokuvamuokkaus', function() {
     HelloWorldController::elokuvamuokkaus();
-  });
-  
-    $routes->get('/elokuva', function() {
-    HelloWorldController::elokuva();
-  });
+});
+
+$routes->post('/', function() {
+    ElokuvaController::store();
+});

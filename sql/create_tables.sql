@@ -32,6 +32,6 @@ CREATE TABLE Elokuva(
   ohjaaja_id INTEGER REFERENCES Ohjaaja(id),
   tyyli_id INTEGER REFERENCES Tyylilaji(id),
   nimi varchar(60) NOT NULL, 
-  kuvaus varchar(300) NOT NULL,
+  kuvaus varchar(300) NOT NULL
   julkaisuvuosi DATE
 );
