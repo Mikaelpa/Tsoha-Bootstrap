@@ -19,3 +19,13 @@ $routes->get('/elokuvamuokkaus', function() {
 $routes->post('/', function() {
     ElokuvaController::store();
 });
+
+$routes->get('/elokuva/:id', function($id){
+    ElokuvaController::elokuva($id);
+});
+
+$routes->post('/elokuva/:id/destroy', function($id){
+  ElokuvaController::destroy($id);
+});
+
+

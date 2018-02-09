@@ -4,9 +4,21 @@ class Elokuva extends BaseModel {
 
 //    public $id, $näyttelijä_id, $ohjaaja_id, $tyyli_id, $nimi, $kuvaus, $julkaisuvuosi;
     public $id, $nimi, $kuvaus;
-    
+
     public function __construct($attributes) {
         parent::__construct($attributes);
+    }
+
+    public function validate_name() {
+        $errors = array();
+        if ($this->nimi == '' || $this->nimi == null) {
+            $errors[] = 'Nimi ei saa olla tyhjä!';
+        }
+        if (strlen($this->nimi) < 3) {
+            $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
+        }
+
+        return $errors;
     }
 
     public static function all() {
@@ -56,13 +68,19 @@ class Elokuva extends BaseModel {
 
 //        $querry = DB::connection()->prepare('INSERT INTO Elokuva (näyttelijä_id, ohjaaja_id, tyyli_id, nimi, kuvaus, julkaisuvuosi) VALUES (:näyttelijä_id, :ohjaaja_id, :tyyli_id, :nimi, :kuvaus, :julkaisuvuosi) RETURNING id');
         $querry = DB::connection()->prepare('INSERT INTO Elokuva (nimi, kuvaus) VALUES (:nimi, :kuvaus) RETURNING id');
-        
+
 //        $querry->execute(array('näyttelijä_id' => $this->näyttelijä_id, 'ohjaaja_id' => $this->ohjaaja_id, 'tyyli_id' => $this->tyyli_id, 'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'julkaisuvuosi' => $this->julkaisuvuosi));
         $querry->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus));
-        
+
         $row = $querry->fetch();
 
         $this->id = $row['id'];
+    }
+    
+    public function destroy(){
+        $query = DB::connection()->prepare(
+                'DELETE FROM Elokuva WHERE id=:id');
+        $query->execute(array('id' => $this->id));
     }
 
 }

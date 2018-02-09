@@ -28,10 +28,10 @@ CREATE TABLE Tyylilaji(
 
 CREATE TABLE Elokuva(
   id SERIAL PRIMARY KEY,
-  näyttelijä_id INTEGER REFERENCES Näyttelijä(id),
-  ohjaaja_id INTEGER REFERENCES Ohjaaja(id),
-  tyyli_id INTEGER REFERENCES Tyylilaji(id),
+--  näyttelijä_id INTEGER REFERENCES Näyttelijä(id),
+--  ohjaaja_id INTEGER REFERENCES Ohjaaja(id),
+--  tyyli_id INTEGER REFERENCES Tyylilaji(id),
   nimi varchar(60) NOT NULL, 
   kuvaus varchar(300) NOT NULL
-  julkaisuvuosi DATE
+--  julkaisuvuosi DATE
 );

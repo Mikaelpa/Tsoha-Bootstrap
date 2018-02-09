@@ -1,5 +1,17 @@
 
 {% extends "base.html" %}
 {% block content %}
-<h1> TODO WRITE CONTENT </h1>
-{% endblock %}
+<div class="container" align="center">
+    <div class="row" style="width:50%">
+
+        <h2>{{elokuva.nimi}}</h2>
+        <p> *kuva* <p>
+        <p>{{elokuva.kuvaus}}</p>
+        <p> *näyttelijät* </p>
+        <form method="post" action="{{base_path}}/elokuva/{{elokuva.id}}/destroy">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Poista elokuva</button>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
