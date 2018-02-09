@@ -17,9 +17,16 @@ class Elokuva extends BaseModel {
         if (strlen($this->nimi) < 3) {
             $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
         }
-
+        if ($this->kuvaus == '' || $this->kuvaus == null) {
+            $errors[] = 'Kuvaus ei voi olla tyhjä';
+        }
+        if (strlen($this->kuvaus) < 10) {
+            $errors[] = 'Kuvauksen pitää olla vähintään 10 merkkiä!';
+        }
         return $errors;
     }
+
+
 
     public static function all() {
         $query = DB::connection()->prepare('SELECT * FROM Elokuva');
@@ -76,8 +83,8 @@ class Elokuva extends BaseModel {
 
         $this->id = $row['id'];
     }
-    
-    public function destroy(){
+
+    public function destroy() {
         $query = DB::connection()->prepare(
                 'DELETE FROM Elokuva WHERE id=:id');
         $query->execute(array('id' => $this->id));

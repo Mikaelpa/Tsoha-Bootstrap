@@ -19,8 +19,6 @@ class ElokuvaController extends BaseController {
     public static function store() {
 
         $params = $_POST;
-
-
         $elokuva = new Elokuva(array(
 //            'näyttelijä_id' => $params['näyttelijä_id'],
 //            'ohjaaja_id' => $params['ohjaaja_id'],
@@ -31,7 +29,7 @@ class ElokuvaController extends BaseController {
         ));
         $errors = $elokuva->validate_name();
         if (count($errors) > 0) {
-            View::make('/error.html');
+            View::make('/suunnitelmat/elokuvamuokkaus.html', array('errors' => $errors));
         } else {
             $elokuva->save();
         }
@@ -44,5 +42,7 @@ class ElokuvaController extends BaseController {
         $elokuva->destroy();
         Redirect::to('/');
     }
+    
+  
 
 }

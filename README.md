@@ -15,5 +15,5 @@ PMDB - practice movie database (elokuvatietokanta)
 
 ## Kommentteja
 * Elokuvan lisääminen toimii toistaiseksi vasta kahdella muuttujalla(kuvaus ja nimi)
-* Elokuvan validointi toimii toistaiseksi vasta nimen perusteella
+* Elokuvan validointi toimii toistaiseksi vasta nimen ja kuvauksen perusteella
 * Lisätty elokuvan poisto-ominaisuus
