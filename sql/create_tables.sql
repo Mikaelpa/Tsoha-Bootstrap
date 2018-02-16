@@ -22,16 +22,21 @@ CREATE TABLE Arvostelu(
 
 CREATE TABLE Tyylilaji(
     id SERIAL PRIMARY KEY,
-    nimi varchar(60) NOT NULL,
-    kuvaus varchar(200)
+    nimi varchar(60) NOT NULL  
 );
 
 CREATE TABLE Elokuva(
   id SERIAL PRIMARY KEY,
 --  näyttelijä_id INTEGER REFERENCES Näyttelijä(id),
 --  ohjaaja_id INTEGER REFERENCES Ohjaaja(id),
---  tyyli_id INTEGER REFERENCES Tyylilaji(id),
+  tyyli_id varchar(50),
   nimi varchar(60) NOT NULL, 
   kuvaus varchar(300) NOT NULL
 --  julkaisuvuosi DATE
+);
+
+CREATE TABLE Kayttaja(
+id SERIAL PRIMARY KEY,
+tunnus varchar(20) NOT NULL,
+salasana varchar(20) NOT NULL
 );

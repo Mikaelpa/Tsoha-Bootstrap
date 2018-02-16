@@ -12,7 +12,46 @@
       </ul>
     </div>
   {% endif %}
-
+{% if muokkaus %}
+<form method="post" action="{{base_path}}/elokuva/{{muokkaus.id}}/muokkaus">
+    <div class="form-group">
+        <label>Nimi</label>
+        <input class="form-control" value="{{muokkaus.nimi}}" type="text" name="nimi">
+    </div>
+    <div class="form-group">
+        <label>Näyttelijät</label>
+        <textarea class="form-control">TODO keksi miten listaat näyttelijät
+        </textarea>
+    </div>
+    <div class="form-group">
+        <label>Kirjoita selostus elokuvasta</label>
+        <textarea class="form-control" rows="5" name="kuvaus">{{muokkaus.kuvaus}}</textarea>
+    </div>
+    <div class="checkbox">
+        <p> AIHE </p>
+        <label>
+            <input type="checkbox" name="tyyli_id" title="Kauhu">
+            kauhu
+        </label>
+        <label>
+            <input type="checkbox" name="tyyli_id" title="Komedia">
+            komedia
+        </label>
+        <label>
+            <input type="checkbox" name="tyyli_id" title="Draama">
+            draama
+        </label>
+        <label>
+            <input type="checkbox" name="tyyli_id" title="Sota">
+            sota
+        </label>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Lisää elokuva</button>
+    </div>
+</form>
+  
+{% else %}
 <form method="post" action="{{base_path}}/">
     <div class="form-group">
         <label>Nimi</label>
@@ -30,19 +69,19 @@
     <div class="checkbox">
         <p> AIHE </p>
         <label>
-            <input type="checkbox">
+            <input type="checkbox" name="tyyli_id" title="Kauhu">
             kauhu
         </label>
         <label>
-            <input type="checkbox">
+            <input type="checkbox" name="tyyli_id" title="Komedia">
             komedia
         </label>
         <label>
-            <input type="checkbox">
+            <input type="checkbox" name="tyyli_id" title="Draama">
             draama
         </label>
         <label>
-            <input type="checkbox">
+            <input type="checkbox" name="tyyli_id" title="Sota">
             sota
         </label>
     </div>
@@ -50,4 +89,6 @@
         <button type="submit" class="btn btn-primary">Lisää elokuva</button>
     </div>
 </form>
+  {% endif %}
+  
 {% endblock %}

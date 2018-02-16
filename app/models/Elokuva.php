@@ -18,11 +18,12 @@ class Elokuva extends BaseModel {
             $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
         }
         if ($this->kuvaus == '' || $this->kuvaus == null) {
-            $errors[] = 'Kuvaus ei voi olla tyhjä';
+            $errors[] = 'Kuvaus ei saa olla tyhjä';
         }
         if (strlen($this->kuvaus) < 10) {
             $errors[] = 'Kuvauksen pitää olla vähintään 10 merkkiä!';
         }
+        
         return $errors;
     }
 
@@ -58,9 +59,9 @@ class Elokuva extends BaseModel {
             $elokuva = new Elokuva(array(
                 'id' => $row['id'],
                 'nimi' => $row['nimi'],
-                'kuvaus' => $row['kuvaus']
+                'kuvaus' => $row['kuvaus'],
 //                'ohjaaja_id' => $row['ohjaaja_id'],
-//                'tyyli_id' => $row['tyyli_id'],
+//                'tyyli_id' => $row['tyyli_id']
 //                'näyttelijä_id' => $row['näyttelijä_id'],
 //                'julkaisuvuosi' => $row['julkaisuvuosi']
             ));
@@ -74,12 +75,10 @@ class Elokuva extends BaseModel {
     public function save() {
 
 //        $querry = DB::connection()->prepare('INSERT INTO Elokuva (näyttelijä_id, ohjaaja_id, tyyli_id, nimi, kuvaus, julkaisuvuosi) VALUES (:näyttelijä_id, :ohjaaja_id, :tyyli_id, :nimi, :kuvaus, :julkaisuvuosi) RETURNING id');
-        $querry = DB::connection()->prepare('INSERT INTO Elokuva (nimi, kuvaus) VALUES (:nimi, :kuvaus) RETURNING id');
-
+        $query = DB::connection()->prepare('INSERT INTO Elokuva (nimi, kuvaus) VALUES (:nimi, :kuvaus) RETURNING id');
 //        $querry->execute(array('näyttelijä_id' => $this->näyttelijä_id, 'ohjaaja_id' => $this->ohjaaja_id, 'tyyli_id' => $this->tyyli_id, 'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'julkaisuvuosi' => $this->julkaisuvuosi));
-        $querry->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus));
-
-        $row = $querry->fetch();
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus));
+        $row = $query->fetch();
 
         $this->id = $row['id'];
     }

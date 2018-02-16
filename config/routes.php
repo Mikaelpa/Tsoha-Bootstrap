@@ -13,7 +13,8 @@ $routes->get('/arvostelu', function() {
 });
 
 $routes->get('/elokuvamuokkaus', function() {
-    HelloWorldController::elokuvamuokkaus();
+    ElokuvaController::check_logged_in();
+    ElokuvaController::elokuvamuokkaus();
 });
 
 $routes->post('/', function() {
@@ -25,7 +26,31 @@ $routes->get('/elokuva/:id', function($id){
 });
 
 $routes->post('/elokuva/:id/destroy', function($id){
+    ElokuvaController::check_logged_in();
   ElokuvaController::destroy($id);
+});
+
+$routes->get('/elokuva/:id/muokkaus', function($id){
+    ElokuvaController::check_logged_in();
+    ElokuvaController::muokkaus($id);
+});
+
+$routes->post('/elokuva/:id/muokkaus', function($id){
+    ElokuvaController::check_logged_in();
+    ElokuvaController::store_destroy($id);
+});
+
+$routes->get('/login', function() {
+    UserController::login();
+});
+
+$routes->post('/login', function() {
+    UserController::kirjaudu();
+});
+
+$routes->post('/logout', function(){
+  ElokuvaController::check_logged_in();
+  UserController::logout();
 });
 
 
