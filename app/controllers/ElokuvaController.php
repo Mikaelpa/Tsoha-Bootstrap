@@ -18,8 +18,9 @@ class ElokuvaController extends BaseController {
     public static function elokuva($id) {
 
         $elokuva = Elokuva::find($id);
+        $arvostelut = Arvostelu::find_by_elokuva($id);
 
-        View::make('/suunnitelmat/elokuva.html', array('elokuva' => $elokuva));
+        View::make('/suunnitelmat/elokuva.html', array('elokuva' => $elokuva, 'arvostelut' => $arvostelut));
     }
 
     public static function muokkaus($id) {
@@ -32,12 +33,9 @@ class ElokuvaController extends BaseController {
 
         $params = $_POST;
         $elokuva = new Elokuva(array(
-//            'näyttelijä_id' => $params['näyttelijä_id'],
-//            'ohjaaja_id' => $params['ohjaaja_id'],
-//            'tyyli_id' => $params['tyyli_id'],
+            'tyyli_id' => $params['tyyli_id'],
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus']
-//            'julkaisuvuosi' => $params['julkaisuvuosi']
         ));
         $errors = $elokuva->validate_name();
         if (count($errors) > 0) {
@@ -51,6 +49,12 @@ class ElokuvaController extends BaseController {
 
     public static function destroy($id) {
         $elokuva = new Elokuva(array('id' => $id));
+        $arvostelut = Arvostelu::find_by_elokuva($id);
+        if ($arvostelut != null) {
+            foreach ($arvostelut as $arvostelu) {
+                $arvostelu->destroy();
+            }
+        }
         $elokuva->destroy();
         Redirect::to('/');
     }
@@ -58,30 +62,27 @@ class ElokuvaController extends BaseController {
     public static function store_destroy($id) {
 
         $params = $_POST;
-        $elokuva = new Elokuva(array(
-//            'näyttelijä_id' => $params['näyttelijä_id'],
-//            'ohjaaja_id' => $params['ohjaaja_id'],
-//            'tyyli_id' => $params['tyyli_id'],
+        $attributes = array(
+            'id' => $id,
             'nimi' => $params['nimi'],
-            'kuvaus' => $params['kuvaus']
-//            'julkaisuvuosi' => $params['julkaisuvuosi']
-        ));
+            'kuvaus' => $params['kuvaus'],
+            'tyyli_id' => $params['tyyli_id']
+        );
+        $elokuva = new Elokuva($attributes);
         $errors = $elokuva->validate_name();
         if (count($errors) > 0) {
             View::make('/suunnitelmat/elokuvamuokkaus.html', array('errors' => $errors, 'muokkaus' => $elokuva));
         } else {
-            $leffa = new Elokuva(array('id' => $id));
-            $leffa->destroy();
-            $elokuva->save();
+            $elokuva->update();
+            Redirect::to('/');
         }
+        
 
-        Redirect::to('/');
+        
     }
 
     public static function elokuvamuokkaus() {
         View::make('suunnitelmat/elokuvamuokkaus.html');
     }
-
-
 
 }

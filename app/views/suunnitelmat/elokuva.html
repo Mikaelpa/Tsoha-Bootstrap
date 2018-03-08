@@ -4,16 +4,34 @@
 <div class="container" align="center">
     <div class="row" style="width:50%">
 
-        <h2>{{elokuva.nimi}}</h2>
-        <p> *arvostelujen keskiarvo* <p>
-        
+        <h1>{{elokuva.nimi}}</h1>
+
         <p>{{elokuva.kuvaus}}</p>
-        <p> *näyttelijät* </p>
-        <p> *linkki arvosteluihin * </p>
+        <p> Aihe: {{elokuva.tyyli_id}}</p>
         <form method="post" action="{{base_path}}/elokuva/{{elokuva.id}}/destroy">
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Poista elokuva</button>
-            </form>  
+                <button type="submit" class="btn btn-danger">Poista elokuva</button>
+        </form>  
         <a class="btn btn-default" href="{{base_path}}/elokuva/{{elokuva.id}}/muokkaus">Muokkaa</a>
-                    </div>
-    {% endblock %}
+        <a class="btn btn-primary" href="{{base_path}}/elokuva/{{elokuva.id}}/arvostelu">Lisää Arvostelu</a>
+    </div>
+</div>
+<div class="row" style="width:50%">
+
+    <h3> Arvostelut </h3>
+</div>
+    {% for arvostelu in arvostelut %}
+    <div class="boxed" style="width:50%;border-style: groove">
+    <a href="{{base_path}}/arvostelu/{{arvostelu.id}}" style="text-decoration: none">
+        <p>{{arvostelu.kirjoittaja}}</p>
+        <p> {{arvostelu.sisältö}}<p>
+
+        <p> Arvosana: {{arvostelu.arvosana}}/5 </p>
+    </a>
+    </div>
+    {% endfor %}
+
+
+
+
+{% endblock %}

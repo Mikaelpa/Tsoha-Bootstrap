@@ -1,10 +1,4 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
-CREATE TABLE Ohjaaja(
-    id SERIAL PRIMARY KEY,
-    nimi varchar(60) NOT NULL,
-    kansalaisuus varchar(60),
-    s_vuosi DATE
-);
 
 CREATE TABLE Näyttelijä(
     id SERIAL PRIMARY KEY,
@@ -15,9 +9,10 @@ CREATE TABLE Näyttelijä(
 
 CREATE TABLE Arvostelu(
     id SERIAL PRIMARY KEY,
-    elokuva_id INTEGER REFERENCES Elokuva(id)
+    elokuva_id INTEGER REFERENCES Elokuva(id),
     kirjoittaja varchar(60) NOT NULL,
-    sisältö varchar(500)
+    sisältö varchar(500) NOT NULL,
+    arvosana integer NOT NULL
 );
 
 CREATE TABLE Tyylilaji(
@@ -27,12 +22,10 @@ CREATE TABLE Tyylilaji(
 
 CREATE TABLE Elokuva(
   id SERIAL PRIMARY KEY,
---  näyttelijä_id INTEGER REFERENCES Näyttelijä(id),
---  ohjaaja_id INTEGER REFERENCES Ohjaaja(id),
-  tyyli_id varchar(50),
+  tyyli_id varchar(50) NOT NULL,
   nimi varchar(60) NOT NULL, 
   kuvaus varchar(300) NOT NULL
---  julkaisuvuosi DATE
+
 );
 
 CREATE TABLE Kayttaja(

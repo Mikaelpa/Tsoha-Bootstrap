@@ -2,8 +2,7 @@
 
 class Elokuva extends BaseModel {
 
-//    public $id, $näyttelijä_id, $ohjaaja_id, $tyyli_id, $nimi, $kuvaus, $julkaisuvuosi;
-    public $id, $nimi, $kuvaus;
+    public $id, $tyyli_id, $nimi, $kuvaus;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -23,11 +22,12 @@ class Elokuva extends BaseModel {
         if (strlen($this->kuvaus) < 10) {
             $errors[] = 'Kuvauksen pitää olla vähintään 10 merkkiä!';
         }
-        
+        if ($this->tyyli_id == null || $this->tyyli_id == '') {
+            $errors[] = 'Valitse aihe/tyyli';
+        }
+
         return $errors;
     }
-
-
 
     public static function all() {
         $query = DB::connection()->prepare('SELECT * FROM Elokuva');
@@ -38,12 +38,9 @@ class Elokuva extends BaseModel {
         foreach ($rows as $row) {
             $elokuvat[] = new Elokuva(array(
                 'id' => $row['id'],
-//                'näyttelijä_id' => $row['näyttelijä_id'],
+                'tyyli_id' => $row['tyyli_id'],
                 'nimi' => $row['nimi'],
-//                'ohjaaja_id' => $row['ohjaaja_id'],
-//                'tyyli_id' => $row['tyyli_id'],
                 'kuvaus' => $row['kuvaus']
-//                'julkaisuvuosi' => $row['julkaisuvuosi']
             ));
         }
 
@@ -58,12 +55,9 @@ class Elokuva extends BaseModel {
         if ($row) {
             $elokuva = new Elokuva(array(
                 'id' => $row['id'],
+                'tyyli_id' => $row['tyyli_id'],
                 'nimi' => $row['nimi'],
-                'kuvaus' => $row['kuvaus'],
-//                'ohjaaja_id' => $row['ohjaaja_id'],
-//                'tyyli_id' => $row['tyyli_id']
-//                'näyttelijä_id' => $row['näyttelijä_id'],
-//                'julkaisuvuosi' => $row['julkaisuvuosi']
+                'kuvaus' => $row['kuvaus']
             ));
 
             return $elokuva;
@@ -72,12 +66,20 @@ class Elokuva extends BaseModel {
         return null;
     }
 
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Elokuva SET tyyli_id = :tyyli_id, nimi = :nimi, kuvaus = :kuvaus WHERE id = :id');
+        $query->execute(array(
+            'nimi' => $this->nimi,
+            'tyyli_id' => $this->tyyli_id,
+            'kuvaus' => $this->kuvaus,
+            'id' => $this->id
+        ));
+    }
+
     public function save() {
 
-//        $querry = DB::connection()->prepare('INSERT INTO Elokuva (näyttelijä_id, ohjaaja_id, tyyli_id, nimi, kuvaus, julkaisuvuosi) VALUES (:näyttelijä_id, :ohjaaja_id, :tyyli_id, :nimi, :kuvaus, :julkaisuvuosi) RETURNING id');
-        $query = DB::connection()->prepare('INSERT INTO Elokuva (nimi, kuvaus) VALUES (:nimi, :kuvaus) RETURNING id');
-//        $querry->execute(array('näyttelijä_id' => $this->näyttelijä_id, 'ohjaaja_id' => $this->ohjaaja_id, 'tyyli_id' => $this->tyyli_id, 'nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'julkaisuvuosi' => $this->julkaisuvuosi));
-        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus));
+        $query = DB::connection()->prepare('INSERT INTO Elokuva (nimi, kuvaus, tyyli_id) VALUES (:nimi, :kuvaus, :tyyli_id) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'tyyli_id' => $this->tyyli_id));
         $row = $query->fetch();
 
         $this->id = $row['id'];

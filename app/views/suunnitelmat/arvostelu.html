@@ -1,5 +1,20 @@
-
 {% extends "base.html" %}
 {% block content %}
-<h1> TODO WRITE CONTENT </h1>
+
+<div class="container" align="center">
+    <div class="row" style="width:50%">
+        <a href="{{base_path}}/elokuva/{{elokuva.id}}" style="text-decoration: none">
+            <h1> {{elokuva.nimi}} </h1>
+             </a>
+        <h2>{{arvostelu.kirjoittaja}}</h2>
+        <p> {{arvostelu.sisältö}}<p>
+        
+        <p> Arvosana: {{arvostelu.arvosana}}/5 </p>
+        
+    </div>
+
+
+
+</div>
+
 {% endblock %}

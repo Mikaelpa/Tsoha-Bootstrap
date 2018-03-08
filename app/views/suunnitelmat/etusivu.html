@@ -4,19 +4,13 @@
 
 <p align="center">Practice movie database</p>
 
-<div>
-    <h3 align="center"> Top 10 (not yet implemented) </h3>
-</div>
-
 
 <div class="container" align="center">
     {% for elokuva in elokuvat %}
     <div class="row" style="width:50%">
         <a href="{{base_path}}/elokuva/{{elokuva.id}}" style="text-decoration: none">
         <h2>{{elokuva.nimi}}</h2>
-        <p> *arvostelujen keskiarvo* <p>
-        
-        <p> *näyttelijät* </p>
+        <p> lisää infoa </p>
         </a>
     </div>
     {% endfor %}
