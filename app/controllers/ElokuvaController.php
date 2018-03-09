@@ -3,9 +3,7 @@
 class ElokuvaController extends BaseController {
 
     public static function index() {
-        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
         $elokuvat = Elokuva::all();
-
         View::make('/suunnitelmat/etusivu.html', array('elokuvat' => $elokuvat));
     }
 

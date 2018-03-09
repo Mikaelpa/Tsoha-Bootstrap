@@ -3,9 +3,7 @@
 class ArvosteluController extends BaseController {
 
     public static function all() {
-        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
         $arvostelut = Arvostelu::all();
-
         View::make('/suunnitelmat/arvostelu.html', array('arvostelut' => $arvostelut));
     }
 
